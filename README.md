@@ -9,8 +9,8 @@ A React Native (Expo) app that puts your daily focus on your iPhone home screen 
 Install dependencies and start the dev server:
 
 ```bash
-pnpm install
-pnpm --filter @workspace/widget-app run start
+npm install
+npm run start --workspace @workspace/widget-app
 ```
 
 Scan the QR code with the **Expo Go** app on your iPhone or Android device. The full app UI works in Expo Go. The native iOS widget requires a production build (see the Widget section below).
@@ -37,7 +37,7 @@ The first time you connect, a prompt will appear on your iPhone asking *"Trust T
 ### 2. Install dependencies (if you haven't already)
 
 ```bash
-pnpm install
+npm install
 ```
 
 ### 3. Build and run on your device
@@ -45,17 +45,15 @@ pnpm install
 From the **repo root** (`fokus-widget-app/`), run:
 
 ```bash
-pnpm run ios:device
+npm run ios:device
 ```
 
 This runs `ios-device.sh`, which does three things in the correct order:
 1. **`expo prebuild`** — `cd`s into `artifacts/widget-app` and generates the native `ios/` Xcode project, wiring up the widget extension, App Group entitlement, and native bridge via the config plugin
-2. **`pnpm install`** — returns to the repo root and installs any dependency changes (pnpm workspaces require install to run from the root — running it inside a subdirectory will fail)
+2. **`npm install`** — returns to the repo root and installs any dependency changes
 3. **`expo run:ios --device --no-install`** — compiles with Xcode, installs to your iPhone, and starts Metro
 
 > If you have multiple connected devices, Expo will prompt you to pick one. Select your iPhone from the list.
-
-**Why a shell script instead of `expo run:ios` directly?** This is a pnpm workspace — `pnpm install` must always run from the repo root. Running `expo run:ios` from inside `artifacts/widget-app` will fail because Expo tries to run `pnpm install` from that subdirectory. The script handles the directory switching for you.
 
 ### 4. Trust the developer certificate on your iPhone
 
@@ -83,14 +81,14 @@ After the first build, you only need to rerun the full build if you change nativ
 To rebuild (from the repo root):
 
 ```bash
-pnpm run ios:device
+npm run ios:device
 ```
 
 To start Metro without rebuilding (after the app is already installed on your iPhone):
 
 ```bash
 cd artifacts/widget-app
-pnpm exec expo start --dev-client
+npx expo start --dev-client
 ```
 
 ### Troubleshooting
@@ -299,10 +297,10 @@ The `artifacts/api-server/` package is an Express 5 server that currently only s
 Start it with:
 
 ```bash
-pnpm --filter @workspace/api-server run dev
+npm run dev --workspace @workspace/api-server
 ```
 
-Add routes in `artifacts/api-server/src/routes/`. Follow the `pnpm-workspace` skill for the OpenAPI-first contract pattern if you add new endpoints.
+Add routes in `artifacts/api-server/src/routes/`.
 
 ---
 
@@ -310,7 +308,7 @@ Add routes in `artifacts/api-server/src/routes/`. Follow the `pnpm-workspace` sk
 
 | Command | What it does |
 |---------|-------------|
-| `pnpm --filter @workspace/widget-app run dev` | Start Expo dev server |
-| `pnpm --filter @workspace/api-server run dev` | Start API server |
-| `pnpm run typecheck` | Full TypeScript check across all packages |
-| `pnpm --filter @workspace/api-spec run codegen` | Regenerate API client hooks from OpenAPI spec |
+| `npm run start --workspace @workspace/widget-app` | Start Expo dev server |
+| `npm run dev --workspace @workspace/api-server` | Start API server |
+| `npm run typecheck` | Full TypeScript check across all packages |
+| `npm run codegen --workspace @workspace/api-spec` | Regenerate API client hooks from OpenAPI spec |
