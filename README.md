@@ -42,21 +42,20 @@ pnpm install
 
 ### 3. Build and run on your device
 
-Navigate into the app package and run:
+From the **repo root** (`fokus-widget-app/`), run the single convenience script:
 
 ```bash
-cd artifacts/widget-app
-pnpm exec expo run:ios --device
+pnpm run ios:device
 ```
 
-Expo will:
-1. Generate the native `ios/` Xcode project (first time only — takes ~30 seconds)
-2. Run the config plugin, which wires up the widget extension target, App Group entitlement, and native bridge
-3. Compile the app and widget extension with Xcode
-4. Install the `.app` bundle directly to your connected iPhone
-5. Start the Metro bundler so JS changes reload instantly without rebuilding
+This does three things in order:
+1. **`expo prebuild`** — generates the native `ios/` Xcode project and wires up the widget extension, App Group entitlement, and native bridge via the config plugin
+2. **`pnpm install`** — resolves any dependency changes from prebuild at the workspace root (required for pnpm workspaces — running install inside a subdirectory will fail)
+3. **`expo run:ios --device --no-install`** — compiles with Xcode, installs to your iPhone, and starts Metro
 
-> If you have multiple devices, Expo will prompt you to pick one. Select your iPhone from the list.
+> If you have multiple connected devices, Expo will prompt you to pick one. Select your iPhone from the list.
+
+**Why not just `expo run:ios` directly?** This is a pnpm workspace — `pnpm install` must always run from the repo root, not from inside `artifacts/widget-app`. The convenience script handles this for you. If you run `expo run:ios` manually from inside `artifacts/widget-app`, it will fail at the install step.
 
 ### 4. Trust the developer certificate on your iPhone
 
@@ -81,14 +80,13 @@ Set a focus in the app — the widget updates immediately.
 
 After the first build, you only need to rerun the full build if you change native code (the config plugin, Swift widget files, or `app.json` plugins). For JS-only changes, just keep Metro running and save your files — the app reloads automatically.
 
-To rebuild:
+To rebuild (from the repo root):
 
 ```bash
-cd artifacts/widget-app
-pnpm exec expo run:ios --device
+pnpm run ios:device
 ```
 
-To start Metro without rebuilding (after the app is already installed):
+To start Metro without rebuilding (after the app is already installed on your iPhone):
 
 ```bash
 cd artifacts/widget-app
