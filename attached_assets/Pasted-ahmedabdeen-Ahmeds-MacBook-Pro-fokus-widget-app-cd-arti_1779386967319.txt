@@ -1,0 +1,31 @@
+ahmedabdeen@Ahmeds-MacBook-Pro fokus-widget-app % cd artifacts/widget-app
+
+ahmedabdeen@Ahmeds-MacBook-Pro widget-app % pnpm exec expo run:ios --device
+
+✔ Created native directory
+✔ Updated package.json
+Dependencies in the package.json changed:
+  expo, react, react-native
+✔ Install the updated dependencies? … yes
+› Installing using pnpm
+> pnpm install
+Error: pnpm install exited with non-zero code: 1
+Error: pnpm install exited with non-zero code: 1
+    at ChildProcess.completionListener (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+spawn-async@1.8.0/node_modules/@expo/spawn-async/src/spawnAsync.ts:167:13)
+    at Object.onceWrapper (node:events:623:26)
+    at ChildProcess.emit (node:events:508:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at Socket.<anonymous> (node:internal/child_process:457:11)
+    at Socket.emit (node:events:508:28)
+    at Pipe.<anonymous> (node:net:346:12)
+    ...
+    at spawnAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+spawn-async@1.8.0/node_modules/@expo/spawn-async/src/spawnAsync.ts:39:21)
+    at PnpmPackageManager.runAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+package-manager@1.11.1/node_modules/@expo/package-manager/src/node/BasePackageManager.ts:73:22)
+    at PnpmPackageManager.installAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+package-manager@1.11.1/node_modules/@expo/package-manager/src/node/PnpmPackageManager.ts:29:17)
+    at PnpmPackageManager.addAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+package-manager@1.11.1/node_modules/@expo/package-manager/src/node/PnpmPackageManager.ts:34:19)
+    at installPackagesAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+cli@54.0.24_expo-router@6.0.23_expo@54.0.34_react-native@0.81.5_@babel+core@7.29._a5b3c719bb5ccdac93692d80fc3c093b/node_modules/@expo/cli/src/install/installAsync.ts:201:26)
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at prebuildAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+cli@54.0.24_expo-router@6.0.23_expo@54.0.34_react-native@0.81.5_@babel+core@7.29._a5b3c719bb5ccdac93692d80fc3c093b/node_modules/@expo/cli/src/prebuild/prebuildAsync.ts:131:9)
+    at ensureNativeProjectAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+cli@54.0.24_expo-router@6.0.23_expo@54.0.34_react-native@0.81.5_@babel+core@7.29._a5b3c719bb5ccdac93692d80fc3c093b/node_modules/@expo/cli/src/run/ensureNativeProject.ts:19:5)
+    at runIosAsync (/Users/ahmedabdeen/Code/fokus-widget-app/node_modules/.pnpm/@expo+cli@54.0.24_expo-router@6.0.23_expo@54.0.34_react-native@0.81.5_@babel+core@7.29._a5b3c719bb5ccdac93692d80fc3c093b/node_modules/@expo/cli/src/run/ios/runIosAsync.ts:37:7)
+ahmedabdeen@Ahmeds-MacBook-Pro widget-app % 
