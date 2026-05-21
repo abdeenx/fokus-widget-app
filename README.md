@@ -19,6 +19,94 @@ Scan the QR code with the **Expo Go** app on your iPhone or Android device. The 
 
 ---
 
+## Running a native build on your iPhone (cable)
+
+This is required to test the **iOS widget** — Expo Go does not support WidgetKit extensions. A local native build compiles the full app including the widget extension and installs it directly to your connected iPhone.
+
+### Prerequisites
+
+- **Xcode 15 or later** — install from the Mac App Store
+- **Xcode Command Line Tools** — run `xcode-select --install` if you haven't already
+- **A free or paid Apple Developer account** — a free account is enough for sideloading to your own device (no App Store submission needed)
+- Your iPhone connected to your Mac via USB cable, with the screen unlocked
+
+### 1. Trust your Mac on the iPhone
+
+The first time you connect, a prompt will appear on your iPhone asking *"Trust This Computer?"* — tap **Trust** and enter your passcode.
+
+### 2. Install dependencies (if you haven't already)
+
+```bash
+pnpm install
+```
+
+### 3. Build and run on your device
+
+Navigate into the app package and run:
+
+```bash
+cd artifacts/widget-app
+pnpm exec expo run:ios --device
+```
+
+Expo will:
+1. Generate the native `ios/` Xcode project (first time only — takes ~30 seconds)
+2. Run the config plugin, which wires up the widget extension target, App Group entitlement, and native bridge
+3. Compile the app and widget extension with Xcode
+4. Install the `.app` bundle directly to your connected iPhone
+5. Start the Metro bundler so JS changes reload instantly without rebuilding
+
+> If you have multiple devices, Expo will prompt you to pick one. Select your iPhone from the list.
+
+### 4. Trust the developer certificate on your iPhone
+
+On first launch you may see *"Untrusted Developer"*. To fix it:
+
+1. On your iPhone go to **Settings → General → VPN & Device Management**
+2. Tap your Apple ID under *Developer App*
+3. Tap **Trust** → **Trust**
+
+Then open Fokus from your home screen — it will launch normally.
+
+### 5. Add the widget to your home screen
+
+1. Long-press an empty area of your home screen until icons jiggle
+2. Tap the **+** button (top-left)
+3. Search for **Fokus**
+4. Choose a size (Small, Medium, or Large) and tap **Add Widget**
+
+Set a focus in the app — the widget updates immediately.
+
+### Subsequent runs
+
+After the first build, you only need to rerun the full build if you change native code (the config plugin, Swift widget files, or `app.json` plugins). For JS-only changes, just keep Metro running and save your files — the app reloads automatically.
+
+To rebuild:
+
+```bash
+cd artifacts/widget-app
+pnpm exec expo run:ios --device
+```
+
+To start Metro without rebuilding (after the app is already installed):
+
+```bash
+cd artifacts/widget-app
+pnpm exec expo start --dev-client
+```
+
+### Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| `xcode-select: error` | Run `xcode-select --install` |
+| Build fails with signing error | Open `ios/fokus.xcworkspace` in Xcode → select your target → Signing & Capabilities → set your Apple ID team |
+| Widget not appearing in gallery | Make sure you opened the app at least once after installing; wait a few seconds for WidgetKit to index it |
+| Widget shows placeholder text | Open the app, set a focus, and wait ~30 seconds for the widget to refresh |
+| Metro can't connect | Ensure your iPhone and Mac are on the same Wi-Fi, or keep the USB cable connected |
+
+---
+
 ## Project structure
 
 ```
