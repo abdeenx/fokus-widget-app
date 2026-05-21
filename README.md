@@ -10,10 +10,12 @@ Install dependencies and start the dev server:
 
 ```bash
 pnpm install
-pnpm --filter @workspace/widget-app run dev
+pnpm --filter @workspace/widget-app run start
 ```
 
 Scan the QR code with the **Expo Go** app on your iPhone or Android device. The full app UI works in Expo Go. The native iOS widget requires a production build (see the Widget section below).
+
+> **Note:** The `dev` script is for running inside Replit (it sets Replit-specific proxy env vars). Use `start` when developing locally on your machine.
 
 ---
 
