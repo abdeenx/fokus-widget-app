@@ -7,8 +7,7 @@
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
-    "ios:prebuild": "pnpm --filter @workspace/widget-app exec expo prebuild --platform ios --no-install",
-    "ios:device": "pnpm run ios:prebuild && pnpm install && pnpm --filter @workspace/widget-app run ios:device"
+    "ios:device": "bash ios-device.sh"
   },
   "private": true,
   "devDependencies": {

@@ -42,20 +42,20 @@ pnpm install
 
 ### 3. Build and run on your device
 
-From the **repo root** (`fokus-widget-app/`), run the single convenience script:
+From the **repo root** (`fokus-widget-app/`), run:
 
 ```bash
 pnpm run ios:device
 ```
 
-This does three things in order:
-1. **`expo prebuild`** — generates the native `ios/` Xcode project and wires up the widget extension, App Group entitlement, and native bridge via the config plugin
-2. **`pnpm install`** — resolves any dependency changes from prebuild at the workspace root (required for pnpm workspaces — running install inside a subdirectory will fail)
+This runs `ios-device.sh`, which does three things in the correct order:
+1. **`expo prebuild`** — `cd`s into `artifacts/widget-app` and generates the native `ios/` Xcode project, wiring up the widget extension, App Group entitlement, and native bridge via the config plugin
+2. **`pnpm install`** — returns to the repo root and installs any dependency changes (pnpm workspaces require install to run from the root — running it inside a subdirectory will fail)
 3. **`expo run:ios --device --no-install`** — compiles with Xcode, installs to your iPhone, and starts Metro
 
 > If you have multiple connected devices, Expo will prompt you to pick one. Select your iPhone from the list.
 
-**Why not just `expo run:ios` directly?** This is a pnpm workspace — `pnpm install` must always run from the repo root, not from inside `artifacts/widget-app`. The convenience script handles this for you. If you run `expo run:ios` manually from inside `artifacts/widget-app`, it will fail at the install step.
+**Why a shell script instead of `expo run:ios` directly?** This is a pnpm workspace — `pnpm install` must always run from the repo root. Running `expo run:ios` from inside `artifacts/widget-app` will fail because Expo tries to run `pnpm install` from that subdirectory. The script handles the directory switching for you.
 
 ### 4. Trust the developer certificate on your iPhone
 
