@@ -11,3 +11,9 @@ id = "gkqOWeIV7pmziV3FCDAHA"
 uri = "file://README.md"
 type = "text"
 title = "README.md"
+
+[[outputs]]
+id = "Ez1mcTRqiZ07MFyn-CvGW"
+uri = "file://prompt.md"
+type = "text"
+title = "Fokus — AI Build Prompt"
